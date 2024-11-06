@@ -6,12 +6,13 @@
 - M상품
   - name = 콜라
   - price = 1000
-  - count = 3
+  - quantity = 3
   - 프로모션 = M증정 프로모션 or null
   - 상품 유무 return boolean
 - M증정 프로모션
   - name = MD추천
-  - type = TwoPlusOne
+  - buy = 2
+  - get = 1
   - startDate = 2024.10.11
   - endDate = 2024.10.20
   - 적용 여부 return boolean : 개수, 날짜 확인
