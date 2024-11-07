@@ -7,13 +7,13 @@ import java.util.Scanner;
 public class Store {
     private final List<Product> stock = new ArrayList<>();
 
-    public Store(Scanner productScanner){
+    public Store(Scanner productScanner, PromotionRepository promotionRepository){
         while (productScanner.hasNextLine()) {
-            setStock(productScanner.nextLine());
+            setStock(productScanner.nextLine(), promotionRepository);
         }
     }
 
-    private void setStock(String product){
-        stock.add(new Product(product));
+    private void setStock(String product, PromotionRepository promotionRepository){
+        stock.add(new Product(product, promotionRepository));
     }
 }

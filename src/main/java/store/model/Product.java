@@ -11,7 +11,7 @@ public class Product {
 
     private Integer quantity;
 
-    public Product(String productContext) {
+    public Product(String productContext, PromotionRepository promotionRepository) {
         final int INDEX_NAME = 0;
         final int INDEX_PRICE = 1;
         final int INDEX_PROMOTION = 2;
@@ -19,6 +19,7 @@ public class Product {
         List<String> productInfo = contextToList(productContext);
         this.name = productInfo.get(INDEX_NAME);
         this.price = getPrice(productInfo.get(INDEX_PRICE));
+        this.promotion = promotionRepository.getPromotion(productInfo.get(INDEX_PROMOTION));
     }
 
     private List<String> contextToList(String context) {
@@ -43,5 +44,4 @@ public class Product {
             throw new IllegalArgumentException("product 재고 등록 가격은 숫자로만 구성해야 합니다");
         }
     }
-
 }
