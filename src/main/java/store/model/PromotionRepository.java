@@ -14,6 +14,10 @@ public class PromotionRepository {
         }
     }
 
+    public Promotion getPromotion(String name){
+        return promotions.get(name);
+    }
+
     private void setPromotions(String promotionContext){
         List<String> promotionInfo = contextToList(promotionContext);
         String promotionName = promotionInfo.removeFirst();
