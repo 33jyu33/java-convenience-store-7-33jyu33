@@ -1,14 +1,14 @@
 package store.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class PromotionRepository {
     private final HashMap<String, Promotion> promotions = new HashMap<>();
 
     public PromotionRepository(Scanner promotionScanner){
+        // 첫 줄 제외
+        promotionScanner.nextLine();
+
         while(promotionScanner.hasNext()){
             setPromotions(promotionScanner.nextLine());
         }
@@ -19,7 +19,7 @@ public class PromotionRepository {
     }
 
     private void setPromotions(String promotionContext){
-        List<String> promotionInfo = contextToList(promotionContext);
+        List<String> promotionInfo = new ArrayList<>(contextToList(promotionContext));
         String promotionName = promotionInfo.removeFirst();
         this.promotions.put(promotionName, new Promotion(promotionInfo));
     }

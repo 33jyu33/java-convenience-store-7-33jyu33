@@ -8,6 +8,8 @@ public class Store {
     private final List<Product> stock = new ArrayList<>();
 
     public Store(Scanner productScanner, PromotionRepository promotionRepository){
+        // 첫 줄 제외
+        productScanner.nextLine();
         while (productScanner.hasNextLine()) {
             setStock(productScanner.nextLine(), promotionRepository);
         }
