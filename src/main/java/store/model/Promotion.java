@@ -5,22 +5,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Promotion {
+    private final String name;
     private final Integer buy;
     private final Integer get;
     private final LocalDate startDate;
     private final LocalDate endDate;
 
     public Promotion(List<String> promotionInfo){
-        final Integer INDEX_BUY = 0;
-        final Integer INDEX_GET = 1;
-        final Integer INDEX_START_DATE = 2;
-        final Integer INDEX_END_DATE = 3;
+        final Integer INDEX_NAME = 0;
+        final Integer INDEX_BUY = 1;
+        final Integer INDEX_GET = 2;
+        final Integer INDEX_START_DATE = 3;
+        final Integer INDEX_END_DATE = 4;
 
+        this.name = promotionInfo.get(INDEX_NAME);
         this.buy = getNumber(promotionInfo.get(INDEX_BUY));
         this.get = getNumber(promotionInfo.get(INDEX_GET));
         this.startDate = LocalDate.parse(promotionInfo.get(INDEX_START_DATE), DateTimeFormatter.ISO_DATE);
         this.endDate = LocalDate.parse(promotionInfo.get(INDEX_END_DATE), DateTimeFormatter.ISO_DATE);
         validateDate();
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     private Integer getNumber(String context){
