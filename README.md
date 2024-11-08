@@ -1,26 +1,33 @@
 # [편의점] 우아한테크코스(pre) 4주차
+
 ---
-## 클래스별 주요 기능
-- M재고
-  - 상품 리스트 = 리스트(M상품)
-- M상품
-  - name = 콜라
-  - price = 1000
-  - quantity = 3
-  - 프로모션 = M증정 프로모션 or null
-  - 상품 유무 return boolean
-- M증정 프로모션
-  - name = MD추천
-  - buy = 2
-  - get = 1
-  - startDate = 2024.10.11
-  - endDate = 2024.10.20
-  - 적용 여부 return boolean : 개수, 날짜 확인
-- C운영
-  - 재고 등록
-  - 구매
-  - 구매 가능 여부
-  - 멤버십 할인 적용
+## 입출력 조건
+- products.md, promotions.md
+  - 공통 조건
+    - 앞뒤 공백 허용
+    - 쉼표(,)로 구분
+  - 공통 예외
+    - 중간 공백
+    - 쉼표(,)
+      - 쉼표가 연속될 경우
+      - 쉼표로 끝날 경우
+      - 쉼표가 맨 앞에 올 경우
+- promotions.md
+  - 조건
+    - name,buy,get,start_date,end_date 순서로 입력
+  - 예외
+    - name이 한 글자 미만일 경우
+    - buy 또는 get이 한 개 이상의 숫자로만 이루어지지 않을 경우
+    - start_date 또는 end_date가 'yyyy-mm-dd' 형식에 어긋날 경우
+- products.md
+  - 조건
+    - name,price,quantity,promotion 순서로 입력
+  - 예외
+    - name이 한 글자 미만일 경우
+    - promotion이 PromotionRepository에 존재하지 않을 경우
+    - price 또는 quantity가 한 개 이상의 숫자로만 이루어지지 않을 경우
+- 영수증 출력
+  - 증정품이 없으면 한 줄을 공란으로 출력한다.
 
 ---
 ## 🐜 학습 목표
