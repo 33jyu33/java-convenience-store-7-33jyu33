@@ -20,7 +20,7 @@ public class PromotionRepository {
 
     private void setPromotions(String promotionContext){
         List<String> promotionInfo = new ArrayList<>(contextToList(promotionContext));
-        String promotionName = promotionInfo.removeFirst();
+        String promotionName = promotionInfo.getFirst();
         this.promotions.put(promotionName, new Promotion(promotionInfo));
     }
 
