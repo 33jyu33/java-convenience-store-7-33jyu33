@@ -1,5 +1,7 @@
 package store.model;
 
+import store.constant.StoreGuide;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,12 +16,22 @@ public class Product {
     public Product(String productContext, PromotionRepository promotionRepository) {
         final int INDEX_NAME = 0;
         final int INDEX_PRICE = 1;
-        final int INDEX_PROMOTION = 2;
+        final int INDEX_QUANTITY = 2;
+        final int INDEX_PROMOTION = 3;
 
         List<String> productInfo = contextToList(productContext);
         this.name = productInfo.get(INDEX_NAME);
         this.price = getPrice(productInfo.get(INDEX_PRICE));
+        this.quantity = getPrice(productInfo.get(INDEX_QUANTITY));
         this.promotion = promotionRepository.getPromotion(productInfo.get(INDEX_PROMOTION));
+    }
+
+    public String getProductInformation(){
+        String promotionName = "";
+        if(promotion != null){
+            promotionName = promotion.getName();
+        }
+        return String.format(StoreGuide.PRODUCT.getContext(), name, price, quantity,promotionName);
     }
 
     private List<String> contextToList(String context) {
