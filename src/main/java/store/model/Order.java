@@ -34,4 +34,13 @@ public class Order {
         }
         return stringBuilder.toString();
     }
+
+    public String getPromotion(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Product product: promotionProducts){
+            stringBuilder.append(product.getPromotionReceipt());
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }
