@@ -25,4 +25,13 @@ public class Order {
     public void setMembership(boolean member){
         membership = member;
     }
+
+    public String getProducts(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Product product: soldProducts){
+            stringBuilder.append(product.getProductReceipt());
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
 }
