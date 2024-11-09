@@ -37,6 +37,26 @@ public class Product {
         return name;
     }
 
+    public Integer getPrice(){
+        return price;
+    }
+
+    public Integer getQuantity(){
+        return quantity;
+    }
+
+    public Integer getPromotionDiscount(){
+        return promotion.getFreeProductCount(quantity)*price;
+    }
+
+    public String getProductReceipt(){
+        return String.format("%s\t\t%,d\t%,d", name, quantity, price);
+    }
+
+    public String getPromotionReceipt(){
+        return String.format("%s\t\t%,d", name, quantity);
+    }
+
     public String getProductInformation(){
         String promotionName = "";
         if(promotion != null){
@@ -56,6 +76,10 @@ public class Product {
 
     public Product getSoldProduct(Integer count){
         return new Product(name, price, count, promotion);
+    }
+
+    public boolean isPromotion(){
+        return promotion != null;
     }
 
     private List<String> contextToList(String context) {
