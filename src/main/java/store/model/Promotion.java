@@ -11,7 +11,7 @@ public class Promotion {
     private final LocalDate startDate;
     private final LocalDate endDate;
 
-    public Promotion(List<String> promotionInfo){
+    public Promotion(List<String> promotionInfo) {
         final Integer INDEX_NAME = 0;
         final Integer INDEX_BUY = 1;
         final Integer INDEX_GET = 2;
@@ -26,23 +26,27 @@ public class Promotion {
         validateDate();
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    private Integer getNumber(String context){
+    public Integer getFreeProductCount(Integer count) {
+        return count / (get + buy) * get;
+    }
+
+    private Integer getNumber(String context) {
         validateOnlyNumber(context);
         return Integer.parseInt(context);
     }
 
-    private void validateOnlyNumber(String context){
-        if (!context.matches("^[0-9]+$")){
+    private void validateOnlyNumber(String context) {
+        if (!context.matches("^[0-9]+$")) {
             throw new IllegalArgumentException("promotion get, buy는 숫자로만 구성해야 합니다");
         }
     }
 
-    private void validateDate(){
-        if (endDate.isBefore(startDate)){
+    private void validateDate() {
+        if (endDate.isBefore(startDate)) {
             throw new IllegalArgumentException("promotion 마감일이 시작일보다 빠를 수 없습니다.");
         }
     }
