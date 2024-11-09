@@ -32,4 +32,26 @@ public class Store {
         }
         return productInformation.toString();
     }
+
+    // 프로모션 부족 수량 확인, 재고 수량 확인
+    public List<Product> getSaleProduct(String name, Integer count) throws IllegalArgumentException {
+        Integer availableSale = 0;
+        Integer orderCount = count;
+        List<Product> saleProduct = new ArrayList<>();
+
+        for (Product product : stock.get(name)) {
+            saleProduct.add(product);
+            availableSale += product.getAvailableQuantity(orderCount);
+            if (availableSale.equals(count)) break;
+            orderCount -= availableSale;
+        }
+        isAvailableSale(availableSale, count);
+        return saleProduct;
+    }
+
+    private void isAvailableSale(Integer productCount, Integer orderCount){
+        if (!productCount.equals(orderCount)) {
+            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+        }
+    }
 }
