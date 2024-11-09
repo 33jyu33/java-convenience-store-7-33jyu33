@@ -43,4 +43,29 @@ public class Order {
         }
         return stringBuilder.toString();
     }
+
+    public String getResult(){
+        Integer total = 0;
+        Integer count = 0;
+        for(Product product : soldProducts){
+            total += product.getPrice()*product.getQuantity();
+            count += product.getQuantity();
+        }
+        Integer promotionDiscount = 0;
+        for(Product promotionProduct : promotionProducts){
+            // 1+1이면 1개 가격만큼 빼기
+            promotionDiscount = promotionProduct.getPromotionDiscount();
+        }
+        Integer membershipDiscount = 0;
+        if(membership) {
+            membershipDiscount = (total-promotionDiscount)*30/100;
+        }
+        Integer price = total-promotionDiscount-membershipDiscount;
+        return String.format("총구매액\t\t%d\t%,d\n" +
+                "행사할인\t\t\t-%,d\n" +
+                "멤버십할인\t\t\t-%,d\n" +
+                "내실돈\t\t\t %,d",
+                count, total, promotionDiscount, membershipDiscount, price
+                );
+    }
 }
