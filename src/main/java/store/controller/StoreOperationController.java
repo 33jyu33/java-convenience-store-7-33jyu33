@@ -20,6 +20,7 @@ public class StoreOperationController {
         Store store = new Store(getScanner(productTextPath), promotionRepository);
         printProductInformation(store);
         Order order = setOrder(store);
+        order.setMembership(InputView.askMembership());
     }
 
     private Scanner getScanner(String path) {
