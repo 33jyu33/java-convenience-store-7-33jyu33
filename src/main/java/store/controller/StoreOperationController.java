@@ -21,6 +21,7 @@ public class StoreOperationController {
         printProductInformation(store);
         Order order = setOrder(store);
         order.setMembership(InputView.askMembership());
+        OutputView.receipt(order.getProducts(), order.getPromotion(), order.getResult());
     }
 
     private Scanner getScanner(String path) {
@@ -49,10 +50,12 @@ public class StoreOperationController {
                         System.out.printf("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)", name, count - promotion);
                         //Y이면 계속하기, N이면 끝내기
                     }
-                    // Order에 판매된 new Product 추가
+                    //Order에 판매된 프로모션 new Product 추가
                     for (Product saleProduct : saleProducts) {
-                        order.addProduct(saleProduct.getSoldProduct(count));
+                        if(saleProduct.isPromotion()) order.addPromotionProduct(saleProduct.getSoldProduct(promotion));
                     }
+                    // Order에 판매된 new Product 추가(프로모션, 일반 합산)
+                    order.addProduct(saleProducts.getFirst().getSoldProduct(count));
                 });
 
                 //판매한 물품은 제외하기
