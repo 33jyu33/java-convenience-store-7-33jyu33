@@ -26,12 +26,36 @@ public class Product {
         this.promotion = promotionRepository.getPromotion(productInfo.get(INDEX_PROMOTION));
     }
 
+    public Product(String name, Integer price, Integer quantity, Promotion promotion){
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.promotion = promotion;
+    }
+
+    public String getName(){
+        return name;
+    }
+
     public String getProductInformation(){
         String promotionName = "";
         if(promotion != null){
             promotionName = promotion.getName();
         }
         return String.format(StoreGuide.PRODUCT.getContext(), name, price, quantity,promotionName);
+    }
+
+    public Integer getAvailableQuantity(Integer count){
+        if(count <= quantity) return count;
+        return quantity;
+    }
+
+    public void sold(Integer count){
+        quantity -= count;
+    }
+
+    public Product getSoldProduct(Integer count){
+        return new Product(name, price, count, promotion);
     }
 
     private List<String> contextToList(String context) {
