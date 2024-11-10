@@ -3,7 +3,7 @@ package store.model;
 import java.util.*;
 
 public class Store {
-    private final HashMap<String, List<Product>> stock = new HashMap<>();
+    private final Map<String, List<Product>> stock = new LinkedHashMap<>();
 
     public Store(Scanner productScanner, PromotionRepository promotionRepository) {
         // 첫 줄 제외
