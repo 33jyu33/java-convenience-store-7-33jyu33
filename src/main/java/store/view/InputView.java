@@ -22,33 +22,63 @@ public class InputView {
     }
 
     public static boolean checkAdditionalFreeProduct(String name, Integer count){
-        System.out.printf(StoreGuide.ASK_FREE.getContext(), name, count);
-        String input = readLine();
-        validateYN(input);
-        return input.equals(CompareContext.YES.getContext());
+        while(true) {
+            try {
+                System.out.printf(StoreGuide.ASK_FREE.getContext(), name, count);
+                String input = readLine();
+                validateYN(input);
+                return input.equals(CompareContext.YES.getContext());
+            } catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
-    public static void checkNotApplyPromotion(String name, Integer quantity){
-        System.out.printf(StoreGuide.ASK_NOT_APPLY_PROMOTION.getContext(), name, quantity);
-        String input = readLine();
-        validateYN(input);
+    public static void checkNotApplyPromotion(String name, Integer quantity) throws IllegalArgumentException{
+        String input = CompareContext.NULL_STRING.getContext();
+        while(true) {
+            try {
+                System.out.printf(StoreGuide.ASK_NOT_APPLY_PROMOTION.getContext(), name, quantity);
+                input = readLine();
+                validateYN(input);
+                break;
+            } catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        checkCancelOrder(input);
+    }
+
+    private static void checkCancelOrder(String input) throws IllegalArgumentException{
         if (input.equals(CompareContext.NO.getContext())){
             throw new IllegalArgumentException(StoreGuide.CANCEL_ORDER.getContext());
         }
     }
 
     public static Boolean askMembership(){
-        System.out.println(StoreGuide.ASK_MEMBERSHIP.getContext());
-        String input = readLine();
-        validateYN(input);
-        return input.equals(CompareContext.YES.getContext());
+        while(true) {
+            try {
+                System.out.println(StoreGuide.ASK_MEMBERSHIP.getContext());
+                String input = readLine();
+                validateYN(input);
+                return input.equals(CompareContext.YES.getContext());
+            } catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public static Boolean askAdditionalPurchase(){
-        System.out.println(StoreGuide.ASK_MORE.getContext());
-        String input = readLine();
-        validateYN(input);
-        return input.equals(CompareContext.YES.getContext());
+        while(true) {
+            try {
+                System.out.println(StoreGuide.ASK_MORE.getContext());
+                String input = readLine();
+                validateYN(input);
+                return input.equals(CompareContext.YES.getContext());
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private static LinkedHashMap<String, Integer> mapOrder(String[] inputOrder) throws IllegalArgumentException{
