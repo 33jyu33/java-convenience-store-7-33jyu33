@@ -35,7 +35,7 @@ public class StoreOperationController {
             printProductInformation(store);
             Order order = getOrder(store);
             order.setMembership(InputView.askMembership());
-            OutputView.receipt(order.getProducts(), order.getPromotion(), order.getResult());
+            OutputView.receipt(order.getProducts(), order.getPromotionalProducts(), order.getResult());
             if (!InputView.askAdditionalPurchase()) break;
         }
     }
@@ -48,6 +48,7 @@ public class StoreOperationController {
         while (true) {
             try {
                 Map<String, Integer> orderMap = InputView.getOrder();
+                store.validateOrderProductName(orderMap.keySet());
                 return setOrder(orderMap, store);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
