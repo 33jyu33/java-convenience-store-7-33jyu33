@@ -9,6 +9,7 @@ public class InputView {
     public static LinkedHashMap<String, Integer> getOrder(){
         while(true) {
             try {
+                System.out.println("구매하실 상품명과 수량을 입력해 주세요. (예: [사이다-2],[감자칩-1])");
                 String[] inputOrder = readLine().strip().split(",");
                 return mapOrder(inputOrder);
             } catch (IllegalArgumentException e){
