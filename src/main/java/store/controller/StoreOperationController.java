@@ -23,7 +23,7 @@ public class StoreOperationController {
         printProductInformation(store);
 
         // 주문 내역 저장
-        Order order = setOrder(store);
+        Order order = getOrder(store);
         order.setMembership(InputView.askMembership());
         OutputView.receipt(order.getProducts(), order.getPromotion(), order.getResult());
     }
@@ -40,31 +40,28 @@ public class StoreOperationController {
         OutputView.productInformation(store);
     }
 
-    private Order setOrder(Store store) {
+    private Order getOrder(Store store) {
         while (true) {
             Order order = new Order();
             try {
-                HashMap<String, Integer> orderMap = InputView.getOrder();
-                // [콜라-3],[사이다-10]
+                Map<String, Integer> orderMap = InputView.getOrder();
                 orderMap.forEach((name, count) -> {
-                    // 판매할 Product 객체
                     Product saleProduct = store.getSaleProduct(name, count);
-                    // 프로모션 적용 물품의 개수
-                    Integer promotionProductQuantity = saleProduct.availableProductQuantity(count);
-                    if (promotionProductQuantity!=null && !Objects.equals(promotionProductQuantity, count)) {
-                        if(!InputView.checkNotApplyPromotion(name, count - promotionProductQuantity)) return;
-                    }
-
-                    //Order에 판매된 프로모션 new Product 추가
+                    checkPromotionalProductCount(saleProduct, count, name);
                     order.addProduct(saleProduct.getSoldProduct(count));
-
-                    // 판매한 물품 제외하기
                     saleProduct.sold(count);
                 });
                 return order;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private void checkPromotionalProductCount(Product saleProduct, Integer count, String name) {
+        Integer promotionProductQuantity = saleProduct.availableProductQuantity(count);
+        if (promotionProductQuantity != null && !Objects.equals(promotionProductQuantity, count)) {
+            if (!InputView.checkNotApplyPromotion(name, count - promotionProductQuantity)) return;
         }
     }
 
