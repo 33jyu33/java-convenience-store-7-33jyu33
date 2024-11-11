@@ -68,6 +68,12 @@ public class Product {
         return promotion.getDiscountedProductCount(getPromotionalProductQuantity(quantity));
     }
 
+    public void checkPromotionPeriod(){
+        if(!promotion.inPeriod()){
+            promotionalQuantity = 0;
+        }
+    }
+
     private Integer getPromotionalProductQuantity(Integer quantity) {
         if (promotionalQuantity < quantity) return promotionalQuantity;
         return quantity;

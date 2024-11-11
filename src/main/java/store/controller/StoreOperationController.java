@@ -60,11 +60,16 @@ public class StoreOperationController {
         Order order = new Order();
         orderMap.forEach((name, count) -> {
             Product saleProduct = store.getSaleProduct(name, count);
+            checkPromotionPeriod(saleProduct);
             checkPromotionalProductCount(saleProduct, count, name);
             order.addProduct(saleProduct.getSoldProduct(count));
             saleProduct.sold(count);
         });
         return order;
+    }
+
+    private void checkPromotionPeriod(Product saleProduct){
+        saleProduct.checkPromotionPeriod();
     }
 
     private void checkPromotionalProductCount(Product saleProduct, Integer count, String name) {

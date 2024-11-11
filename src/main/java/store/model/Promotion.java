@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static camp.nextstep.edu.missionutils.DateTimes.now;
+
 public class Promotion {
     private final String name;
     private final Integer buy;
@@ -36,6 +38,11 @@ public class Promotion {
 
     public Integer getDiscountedProductCount(Integer count) {
         return (count / (get + buy)) * (get + buy);
+    }
+
+    public Boolean inPeriod() {
+        LocalDate now = now().toLocalDate();
+        return ((!now.isBefore(startDate)) && (!now.isAfter(endDate)));
     }
 
     private Integer getNumber(String context) {
