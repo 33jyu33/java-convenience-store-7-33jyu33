@@ -49,6 +49,7 @@ public class Order {
         membershipDiscount = membershipDiscount * 30/100;
 
         if(!membership) membershipDiscount = 0;
+        if(8000 < membershipDiscount) membershipDiscount = 8000;
         Integer price = total-promotionDiscount-membershipDiscount;
         return String.format("총구매액\t\t%d\t%,d\n" +
                 "행사할인\t\t\t-%,d\n" +
