@@ -40,6 +40,13 @@ public class Promotion {
         return (count / (get + buy)) * (get + buy);
     }
 
+    public Integer getAdditionalFreeProductCount(Integer count){
+        if(count - getDiscountedProductCount(count) == buy){
+            return get;
+        }
+        return 0;
+    }
+
     public Boolean inPeriod() {
         LocalDate now = now().toLocalDate();
         return ((!now.isBefore(startDate)) && (!now.isAfter(endDate)));
