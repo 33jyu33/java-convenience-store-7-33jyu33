@@ -40,6 +40,13 @@ public class Store {
         saleProduct.validateOrderQuantity(count);
         return saleProduct;
     }
+
+    public void validateOrderProductName(Set<String> order) {
+        for (String name : order) {
+            if (!stock.containsKey(name)) throw new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요.");
+        }
+    }
+
     private List<String> contextToList(String context) {
         List<String> productInfo = Arrays.asList(context.strip().split(","));
         validateInfoSize(productInfo);
