@@ -6,7 +6,7 @@
   - 공통 조건
     - 앞뒤 공백 허용
     - 쉼표(,)로 구분
-  - 공통 예외
+  - **공통 예외**
     - 중간 공백
     - 쉼표(,)
       - 쉼표가 연속될 경우
@@ -15,14 +15,14 @@
 - promotions.md
   - 조건
     - name,buy,get,start_date,end_date 순서로 입력
-  - 예외
+  - **예외**
     - name이 한 글자 미만일 경우
     - buy 또는 get이 한 개 이상의 숫자로만 이루어지지 않을 경우
     - start_date 또는 end_date가 'yyyy-mm-dd' 형식에 어긋날 경우
 - products.md
   - 조건
     - name,price,quantity,promotion 순서로 입력
-  - 예외
+  - **예외**
     - name이 한 글자 미만일 경우
     - promotion이 PromotionRepository에 존재하지 않을 경우
     - price 또는 quantity가 한 개 이상의 숫자로만 이루어지지 않을 경우
@@ -32,6 +32,9 @@
   - 예외
     - 수량이 부족할 경우
     - 해당 제품이 존재하지 않을 경우
+    - 공백이 포함된 경우
+- 프로모션
+  - 프로모션이 적용되지 않은 상품에 대한 안내에서 "N"을 입력 받으면 0개로 처리한다. 
 - 영수증 출력
   - 증정품이 없으면 한 줄을 공란으로 출력한다.
 
