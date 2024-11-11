@@ -37,6 +37,11 @@ public class Product {
         }
     }
 
+    public void updatePromotionalQuantity(Integer promotionalQuantity){
+        this.quantity = promotionalQuantity;
+        this.promotionalQuantity = promotionalQuantity;
+    }
+
     public Product(String name, Integer price, Integer quantity, Promotion promotion, Integer promotionalQuantity) {
         this.name = name;
         this.price = price;
@@ -57,23 +62,36 @@ public class Product {
         return quantity;
     }
 
+    public Integer getAdditionalFreeProductCount(Integer quantity) {
+        if (promotion != null){
+            return promotion.getAdditionalFreeProductCount(quantity);
+        }
+        return 0;
+    }
+
+    public boolean validateAdditionalQuantity(Integer quantity) {
+        return quantity <= this.promotionalQuantity;
+    }
+
     public void validateOrderQuantity(Integer quantity) throws IllegalArgumentException {
         if (this.quantity < quantity) {
             throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
         }
     }
 
+    // 프로모션 적용 가능한 수량
     public Integer availableProductQuantity(Integer quantity) {
         if (promotion == null) return null;
         return promotion.getDiscountedProductCount(getPromotionalProductQuantity(quantity));
     }
 
-    public void checkPromotionPeriod(){
-        if(!promotion.inPeriod()){
+    public void checkPromotionPeriod() {
+        if (!promotion.inPeriod()) {
             promotionalQuantity = 0;
         }
     }
 
+    // 주문 받은 수량 중 프로모션 적용할 상품의 개수
     private Integer getPromotionalProductQuantity(Integer quantity) {
         if (promotionalQuantity < quantity) return promotionalQuantity;
         return quantity;
