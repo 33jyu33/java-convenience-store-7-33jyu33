@@ -1,7 +1,6 @@
 package store.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Order {
@@ -17,21 +16,22 @@ public class Order {
     }
 
     public String getProducts(){
-        StringBuilder stringBuilder = new StringBuilder();
+        ArrayList<String> productInformation = new ArrayList<>();
         for(Product product: soldProducts){
-            stringBuilder.append(product.getProductReceipt());
-            stringBuilder.append("\n");
+            productInformation.add(product.getProductReceipt());
         }
-        return stringBuilder.toString();
+        return String.join("\n", productInformation);
     }
 
-    public String getPromotion(){
-        StringBuilder stringBuilder = new StringBuilder();
+    public String getPromotionalProducts(){
+        ArrayList<String> promotionalProductInformation = new ArrayList<>();
         for(Product product: soldProducts){
-            stringBuilder.append(product.getPromotionReceipt());
-            stringBuilder.append("\n");
+            String promotionReceipt = product.getPromotionReceipt();
+            if(promotionReceipt != null) {
+                promotionalProductInformation.add(promotionReceipt);
+            }
         }
-        return stringBuilder.toString();
+        return String.join("\n", promotionalProductInformation);
     }
 
     public String getResult(){
