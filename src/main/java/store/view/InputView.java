@@ -17,11 +17,13 @@ public class InputView {
         }
     }
 
-    public static boolean checkNotApplyPromotion(String name, Integer quantity){
+    public static void checkNotApplyPromotion(String name, Integer quantity){
         System.out.printf("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)\n", name, quantity);
         String input = readLine();
         validateYN(input);
-        return input.equals("Y");
+        if (input.equals("N")){
+            throw new IllegalArgumentException("주문을 취소했습니다.");
+        };
     }
 
     public static Boolean askMembership(){
