@@ -57,7 +57,7 @@ public class Product {
         return quantity;
     }
 
-    public void validateOrderQuantity(Integer quantity) {
+    public void validateOrderQuantity(Integer quantity) throws IllegalArgumentException {
         if (this.quantity < quantity) {
             throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
         }
@@ -88,10 +88,10 @@ public class Product {
     }
 
     public String getPromotionReceipt() {
-        if (promotion == null) return "";
+        if (promotion == null) return null;
         Integer freeQuantity = promotion.getFreeProductCount(promotionalQuantity);
-        if (freeQuantity == 0) return "";
-        return String.format("%s\t\t%,d\n", name, freeQuantity);
+        if (freeQuantity == 0) return null;
+        return String.format("%s\t\t%,d", name, freeQuantity);
     }
 
     public String getProductInformation() {
