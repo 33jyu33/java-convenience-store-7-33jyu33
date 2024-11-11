@@ -1,5 +1,7 @@
 package store.model;
 
+import store.constant.CompareContext;
+import store.constant.ErrorMessage;
 import store.constant.StoreGuide;
 
 import java.util.List;
@@ -75,7 +77,7 @@ public class Product {
 
     public void validateOrderQuantity(Integer quantity) throws IllegalArgumentException {
         if (this.quantity < quantity) {
-            throw new IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.OVER_QUANTITY.getMessage());
         }
     }
 
@@ -126,15 +128,15 @@ public class Product {
     }
 
     private String getGeneralProductInformation(){
-        String quantityContext = "재고 없음";
+        String quantityContext = CompareContext.NO_STOCK.getContext();
         if (0 < quantity - promotionalQuantity){
             quantityContext = Integer.toString(quantity - promotionalQuantity)+"개";
         }
-        return String.format(StoreGuide.PRODUCT.getContext(), name, price, quantityContext, "");
+        return String.format(StoreGuide.PRODUCT.getContext(), name, price, quantityContext, CompareContext.NULL_STRING);
     }
 
     private String getPromotionalProductInformation() {
-        String quantityContext = "재고 없음";
+        String quantityContext = CompareContext.NO_STOCK.getContext();
         if (0 < promotionalQuantity){
             quantityContext = Integer.toString(promotionalQuantity)+"개";
         }

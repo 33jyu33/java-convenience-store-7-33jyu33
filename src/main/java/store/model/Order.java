@@ -1,5 +1,8 @@
 package store.model;
 
+import store.constant.CompareContext;
+import store.constant.StoreGuide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,11 +54,6 @@ public class Order {
         if(!membership) membershipDiscount = 0;
         if(8000 < membershipDiscount) membershipDiscount = 8000;
         Integer price = total-promotionDiscount-membershipDiscount;
-        return String.format("총구매액\t\t%d\t%,d\n" +
-                "행사할인\t\t\t-%,d\n" +
-                "멤버십할인\t\t\t-%,d\n" +
-                "내실돈\t\t\t %,d",
-                count, total, promotionDiscount, membershipDiscount, price
-                );
+        return String.format(StoreGuide.RESULT.getContext(), count, total, promotionDiscount, membershipDiscount, price);
     }
 }

@@ -1,5 +1,7 @@
 package store.model;
 
+import store.constant.ErrorMessage;
+
 import java.util.*;
 
 public class Store {
@@ -43,7 +45,7 @@ public class Store {
 
     public void validateOrderProductName(Set<String> order) {
         for (String name : order) {
-            if (!stock.containsKey(name)) throw new IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요.");
+            if (!stock.containsKey(name)) throw new IllegalArgumentException(ErrorMessage.NOT_EXIST.getMessage());
         }
     }
 
