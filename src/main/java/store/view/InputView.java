@@ -1,11 +1,12 @@
 package store.view;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 public class InputView {
-    public static HashMap<String, Integer> getOrder(){
+    public static LinkedHashMap<String, Integer> getOrder(){
         while(true) {
             try {
                 String[] inputOrder = readLine().strip().split(",");
@@ -16,16 +17,22 @@ public class InputView {
         }
     }
 
-    public static Boolean askMembership(){
-        System.out.println("멤버십 할인을 받으시겠습니까? (Y/N)");
+    public static boolean checkNotApplyPromotion(String name, Integer quantity){
+        System.out.printf("현재 %s %d개는 프로모션 할인이 적용되지 않습니다. 그래도 구매하시겠습니까? (Y/N)\n", name, quantity);
         String input = readLine();
-        validateMembership(input);
-        System.out.println(input.equals("Y"));
+        validateYN(input);
         return input.equals("Y");
     }
 
-    private static HashMap<String, Integer> mapOrder(String[] inputOrder) throws IllegalArgumentException{
-        HashMap<String, Integer> orderMap = new HashMap<>();
+    public static Boolean askMembership(){
+        System.out.println("멤버십 할인을 받으시겠습니까? (Y/N)");
+        String input = readLine();
+        validateYN(input);
+        return input.equals("Y");
+    }
+
+    private static LinkedHashMap<String, Integer> mapOrder(String[] inputOrder) throws IllegalArgumentException{
+        LinkedHashMap<String, Integer> orderMap = new LinkedHashMap<>();
         for(String input : inputOrder){
             validateOrder(input);
             String[] order = splitOrder(input);
@@ -45,7 +52,7 @@ public class InputView {
         }
     }
 
-    private static void validateMembership(String answer){
+    private static void validateYN(String answer){
         if(!answer.matches("^[Y|N]{1}$")){
             throw new IllegalArgumentException("[ERROR] 잘못된 입력입니다. 다시 입력해 주세요.");
         }
