@@ -42,16 +42,9 @@ public class StoreOperationController {
 
     private Order getOrder(Store store) {
         while (true) {
-            Order order = new Order();
             try {
                 Map<String, Integer> orderMap = InputView.getOrder();
-                orderMap.forEach((name, count) -> {
-                    Product saleProduct = store.getSaleProduct(name, count);
-                    checkPromotionalProductCount(saleProduct, count, name);
-                    order.addProduct(saleProduct.getSoldProduct(count));
-                    saleProduct.sold(count);
-                });
-                return order;
+                return setOrder(orderMap, store);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -63,6 +56,17 @@ public class StoreOperationController {
         if (promotionProductQuantity != null && !Objects.equals(promotionProductQuantity, count)) {
             if (!InputView.checkNotApplyPromotion(name, count - promotionProductQuantity)) return;
         }
+    }
+
+    private Order setOrder(Map<String, Integer> orderMap, Store store) throws IllegalArgumentException {
+        Order order = new Order();
+        orderMap.forEach((name, count) -> {
+            Product saleProduct = store.getSaleProduct(name, count);
+            checkPromotionalProductCount(saleProduct, count, name);
+            order.addProduct(saleProduct.getSoldProduct(count));
+            saleProduct.sold(count);
+        });
+        return order;
     }
 
 }
