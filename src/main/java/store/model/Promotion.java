@@ -34,6 +34,10 @@ public class Promotion {
         return count / (get + buy) * get;
     }
 
+    public Integer getDiscountedProductCount(Integer count) {
+        return (count / (get + buy)) * (get + buy);
+    }
+
     private Integer getNumber(String context) {
         validateOnlyNumber(context);
         return Integer.parseInt(context);
