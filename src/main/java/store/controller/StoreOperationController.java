@@ -19,13 +19,7 @@ public class StoreOperationController {
         PromotionRepository promotionRepository = new PromotionRepository(getScanner(promotionTextPath));
         Store store = new Store(getScanner(productTextPath), promotionRepository);
 
-        // 재고 출력
-        printProductInformation(store);
-
-        // 주문 내역 저장
-        Order order = getOrder(store);
-        order.setMembership(InputView.askMembership());
-        OutputView.receipt(order.getProducts(), order.getPromotion(), order.getResult());
+        saleProduct(store);
     }
 
     private Scanner getScanner(String path) {
@@ -33,6 +27,16 @@ public class StoreOperationController {
             return new Scanner(new File(path));
         } catch (IOException e) {
             throw new IllegalArgumentException("스캐너 사용할 수 없다 욘석아");
+        }
+    }
+
+    private void saleProduct(Store store) {
+        while (true) {
+            printProductInformation(store);
+            Order order = getOrder(store);
+            order.setMembership(InputView.askMembership());
+            OutputView.receipt(order.getProducts(), order.getPromotion(), order.getResult());
+            if (!InputView.askAdditionalPurchase()) break;
         }
     }
 
@@ -51,13 +55,6 @@ public class StoreOperationController {
         }
     }
 
-    private void checkPromotionalProductCount(Product saleProduct, Integer count, String name) {
-        Integer promotionProductQuantity = saleProduct.availableProductQuantity(count);
-        if (promotionProductQuantity != null && !Objects.equals(promotionProductQuantity, count)) {
-            if (!InputView.checkNotApplyPromotion(name, count - promotionProductQuantity)) return;
-        }
-    }
-
     private Order setOrder(Map<String, Integer> orderMap, Store store) throws IllegalArgumentException {
         Order order = new Order();
         orderMap.forEach((name, count) -> {
@@ -67,6 +64,13 @@ public class StoreOperationController {
             saleProduct.sold(count);
         });
         return order;
+    }
+
+    private void checkPromotionalProductCount(Product saleProduct, Integer count, String name) {
+        Integer promotionProductQuantity = saleProduct.availableProductQuantity(count);
+        if (promotionProductQuantity != null && !Objects.equals(promotionProductQuantity, count)) {
+            InputView.checkNotApplyPromotion(name, count - promotionProductQuantity);
+        }
     }
 
 }
