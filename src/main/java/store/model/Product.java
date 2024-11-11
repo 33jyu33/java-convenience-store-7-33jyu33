@@ -132,7 +132,7 @@ public class Product {
         if (0 < quantity - promotionalQuantity){
             quantityContext = Integer.toString(quantity - promotionalQuantity)+"개";
         }
-        return String.format(StoreGuide.PRODUCT.getContext(), name, price, quantityContext, CompareContext.NULL_STRING);
+        return String.format(StoreGuide.PRODUCT.getContext(), name, price, quantityContext, CompareContext.NULL_STRING.getContext());
     }
 
     private String getPromotionalProductInformation() {
