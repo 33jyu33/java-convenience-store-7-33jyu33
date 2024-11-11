@@ -86,7 +86,7 @@ public class Product {
     }
 
     public void checkPromotionPeriod() {
-        if (!promotion.inPeriod()) {
+        if (promotion == null || !promotion.inPeriod()) {
             promotionalQuantity = 0;
         }
     }
@@ -119,16 +119,26 @@ public class Product {
     }
 
     public String getProductInformation() {
-        String information = "";
         if (promotion != null) {
-            information += getPromotionalProductInformation();
+            return getPromotionalProductInformation()+getGeneralProductInformation();
         }
+        return getGeneralProductInformation();
+    }
 
-        return information + String.format(StoreGuide.PRODUCT.getContext(), name, price, quantity, "");
+    private String getGeneralProductInformation(){
+        String quantityContext = "재고 없음";
+        if (0 < quantity - promotionalQuantity){
+            quantityContext = Integer.toString(quantity - promotionalQuantity)+"개";
+        }
+        return String.format(StoreGuide.PRODUCT.getContext(), name, price, quantityContext, "");
     }
 
     private String getPromotionalProductInformation() {
-        return String.format(StoreGuide.PRODUCT.getContext(), name, price, promotionalQuantity, promotion.getName());
+        String quantityContext = "재고 없음";
+        if (0 < promotionalQuantity){
+            quantityContext = Integer.toString(promotionalQuantity)+"개";
+        }
+        return String.format(StoreGuide.PRODUCT.getContext(), name, price, quantityContext, promotion.getName());
     }
 
     public void sold(Integer count) {
