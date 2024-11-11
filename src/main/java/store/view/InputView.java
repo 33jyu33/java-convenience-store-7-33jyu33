@@ -33,6 +33,13 @@ public class InputView {
         return input.equals("Y");
     }
 
+    public static Boolean askAdditionalPurchase(){
+        System.out.println("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
+        String input = readLine();
+        validateYN(input);
+        return input.equals("Y");
+    }
+
     private static LinkedHashMap<String, Integer> mapOrder(String[] inputOrder) throws IllegalArgumentException{
         LinkedHashMap<String, Integer> orderMap = new LinkedHashMap<>();
         for(String input : inputOrder){
