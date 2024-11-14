@@ -1,7 +1,10 @@
 package store;
 
+import store.controller.StoreOperationController;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        StoreOperationController storeOperationController = new StoreOperationController();
+        storeOperationController.run();
     }
 }
